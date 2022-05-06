@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import { throttle } from "lodash"
+
 const onmousemove = (el, e) => {
   const box = el.getBoundingClientRect()
   const centerX = box.x + (box.width / 2)
@@ -22,7 +24,7 @@ Vue.directive('sticky-button', {
       position: relative;
       transition: transform .125s linear;
     `
-    el.onmousemove = onmousemove.bind(this, el)
+    el.onmousemove = throttle(onmousemove.bind(this, el), 50, { trailing: false })
     el.onmouseout = onmouseout.bind(this, el)
 
     el.addEventListener('mousemove', el.onmousemove)

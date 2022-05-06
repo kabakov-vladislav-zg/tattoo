@@ -1,0 +1,92 @@
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: $zindex-modal;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  overflow-y: auto;
+  background-color: rgba($dark, .8);
+
+  &::before, &::after {
+    content: '';
+  }
+}
+.modal-container {
+  position: relative;
+  flex-shrink: 0;
+  padding: 2rem;
+  background: $white;
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  min-height: 100%;
+  @media (min-width: 768px) {
+    width: 512px;
+    min-height: auto;
+  }
+  @media (min-width: 992px) {
+    width: 392px;
+  }
+
+  &_bottom {
+    min-height: auto;
+    margin-top: auto;
+  }
+  &_sm {
+    @media (min-width: 992px) {
+      width: 496px;
+    }
+  }
+
+  &_md {
+    @media (min-width: 992px) {
+      width: 600px;
+    }
+  }
+
+  &_lg {
+    @media (min-width: 768px) {
+      width: 90%;
+    }
+    @media (min-width: 992px) {
+      width: 872px;
+    }
+  }
+
+  &_xl {
+    @media (min-width: 768px) {
+      width: 90%;
+    }
+    @media (min-width: 992px) {
+      width: 90%;
+    }
+    @media (min-width: 1400px) {
+      width: 1224px;
+    }
+  }
+
+  &_transition {
+    &-enter, &-leave-to {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    &-enter-active, &-leave-active {
+      transition: opacity 400ms, transform 400ms;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    svg {
+      font-size: 1rem!important;
+    }
+  }
+}

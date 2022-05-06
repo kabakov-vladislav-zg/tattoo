@@ -2,17 +2,20 @@
   <section class="section section-two-columns container">
     <div
       class="row row-cols-1 row-cols-md-2 align-items-center gy-4 gy-md-0"
-      :class="{ 'flex-row-reverse' : imgFirst }"
+      :class="{ 'flex-row-reverse' : reverse }"
     >
       <div class="col">
         <slot></slot>
       </div>
       <div
         class="col"
-        :class="[ imgFirst ? 'pe-md-5' : 'ps-md-5' ]"
+        :class="[ reverse ? 'pe-md-5' : 'ps-md-5' ]"
       >
         <slot name="img">
-          <ImgContainer :img="img" />
+          <FigureCase
+            v-if="caseItem"
+            :caseItem="caseItem"
+          />
         </slot>
       </div>
     </div>
@@ -20,18 +23,17 @@
 </template>
 
 <script>
-import ImgContainer from "@/components/ImgContainer";
+import FigureCase from "@/components/FigureCase";
 export default {
   name: "SectionTwoColumns",
-  components: {ImgContainer},
+  components: {FigureCase},
   props: {
-    img: {
-      type: String,
-      required: false
+    caseItem: {
+      type: Object,
     },
-    imgFirst: {
+    reverse: {
       type: Boolean,
-      default: true
+      default: false
     }
   }
 }

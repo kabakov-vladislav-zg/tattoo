@@ -1,7 +1,8 @@
 <template>
   <main>
     <SectionTwoColumns
-      img="/mockup/1.jpg"
+      :caseItem="cases[0]"
+      :reverse="true"
     >
       <h1 class="display-2">Студия татуировок и пирсинга в Тольятти</h1>
       <p>На счету мастеров нашей студии множество превосходных работ.
@@ -12,8 +13,7 @@
     <BannerAds />
 
     <SectionTwoColumns
-      img="/mockup/2.jpg"
-      :imgFirst="false"
+      :caseItem="cases[1]"
     >
       <h2 class="display-3">О нас</h2>
       <p>При выборе татуировщика вы обращайте внимание на много факторов,
@@ -25,7 +25,8 @@
     </SectionTwoColumns>
 
     <SectionTwoColumns
-      img="/mockup/3.jpg"
+      :reverse="true"
+      :caseItem="cases[1]"
     >
       <h2 class="display-3">Цены</h2>
       <table class="table">
@@ -53,14 +54,15 @@
         </tbody>
       </table>
     </SectionTwoColumns>
-    <SectionTwoColumns
-      img="/mockup/4.jpg"
-      :imgFirst="false"
-    >
+    <SectionTwoColumns>
       <h2 class="display-3">Как доехать?</h2>
       <p>Работаем каждый день с 10:00 до последнего клиента.</p>
       <p>Тольятти, улица Дзержинского, 68А</p>
       <p>Вход под вывеской "Хорошее Место"</p>
+
+      <template v-slot:img>
+        <InteractiveMap />
+      </template>
     </SectionTwoColumns>
   </main>
 </template>
@@ -68,11 +70,22 @@
 <script>
 import SectionTwoColumns from "@/components/SectionTwoColumns";
 import BannerAds from "@/components/BannerAds";
+import InteractiveMap from "@/components/InteractiveMap";
+
+import cases from "@/static/mockup/cases"
 export default {
   name: 'IndexPage',
+
   components: {
+    InteractiveMap,
     BannerAds,
     SectionTwoColumns
+  },
+
+  data() {
+    return {
+      cases
+    }
   }
 }
 </script>

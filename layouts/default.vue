@@ -1,32 +1,52 @@
 <template>
-  <div @mousemove="onmousemove">
-    <TheHeader />
-    <Nuxt />
+  <div
+    class="layout-default"
+    @mousemove="throttledOnmousemove"
+  >
+    <div class="layout-default__footer-overlay">
+      <TheHeader />
+      <Nuxt />
+    </div>
+    <TheFooter class="layout-default__footer" />
 
     <div
       v-if="point.clientX"
       :style="{
         transform: `translate(${ point.clientX }px, ${ point.clientY + point.scrollY }px)`
       }"
-      class="point"
-      :class="{'point_with-caption' : pointCaption }"
+      class="layout-default__point"
+      :class="{'layout-default__point_with-caption' : pointCaption }"
     >
       {{ pointCaption }}
     </div>
+
+    <SimpleModal
+      name="modal"
+      v-slot="{ options }"
+    >
+      <SimpleModalContainer class="modal-container_xl">
+        <component :is="options.component" v-bind="options.properties" />
+      </SimpleModalContainer>
+    </SimpleModal>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import TheHeader from "~/components/TheHeader";
+import TheHeader from "~/components/TheHeader"
+import TheFooter from "@/components/TheFooter"
+import { throttle } from "lodash"
 export default {
   name: "default",
   components: {
+    TheFooter,
     TheHeader
   },
 
   data() {
     return {
+      throttledOnmousemove: null,
+      throttledOnscroll: null,
       point: {
         clientX: NaN,
         clientY: NaN,
@@ -52,40 +72,57 @@ export default {
   },
 
   beforeMount() {
-    window.addEventListener('scroll', this.onscroll)
+    this.throttledOnmousemove = throttle(this.onmousemove, 100, { leading: false })
+    this.throttledOnscroll = throttle(this.onscroll, 100, { leading: false })
+    window.addEventListener('scroll', this.throttledOnscroll)
   },
   beforeDestroy() {
-    window.removeEventListener('scroll', this.onscroll)
+    window.removeEventListener('scroll', this.throttledOnscroll)
   },
 }
 </script>
 
 <style lang="scss">
-.point {
-  position: absolute;
-  top: -4px;
-  left: -4px;
-  transition: .125s linear;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: $red;
-  z-index: 999999999;
-  pointer-events: none;
-  color: #fff;
-  font-weight: 500;
-  font-family: $btn-font-family;
-  font-size: .75rem;
+.layout-default {
+  &__footer-overlay {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 30rem;
+    background: $white;
+  }
+  &__footer {
+    height: 30rem;
+    position: fixed;
+    inset: auto 0 0 0;
+  }
+  &__point {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    transition: .125s linear;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: $red;
+    z-index: 999999999;
+    pointer-events: none;
+    color: #fff;
+    font-weight: 500;
+    font-family: $btn-font-family;
+    font-size: .75rem;
 
-  &_with-caption {
-    top: -3.125rem;
-    left: -3.125rem;
-    width: 6.25rem;
-    height: 6.25rem;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    padding: 1rem;
+    &_with-caption {
+      top: -3.125rem;
+      left: -3.125rem;
+      width: 6.25rem;
+      height: 6.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1rem;
+      overflow: hidden;
+    }
   }
 }
 </style>

@@ -1,0 +1,32 @@
+/*!
+ * Bootstrap Grid v5.1.3 (https://getbootstrap.com/)
+ * Copyright 2011-2021 The Bootstrap Authors
+ * Copyright 2011-2021 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ */
+
+$include-column-box-sizing: true !default;
+
+@import "../../node_modules/bootstrap/scss/root";
+@import "../../node_modules/bootstrap/scss/reboot";
+@import "../../node_modules/bootstrap/scss/type";
+
+@import "../../node_modules/bootstrap/scss/mixins/lists";
+@import "../../node_modules/bootstrap/scss/mixins/breakpoints";
+@import "../../node_modules/bootstrap/scss/mixins/container";
+@import "../../node_modules/bootstrap/scss/mixins/grid";
+@import "../../node_modules/bootstrap/scss/mixins/utilities";
+
+@import "../../node_modules/bootstrap/scss/vendor/rfs";
+
+@import "../../node_modules/bootstrap/scss/containers";
+@import "../../node_modules/bootstrap/scss/grid";
+@import "../../node_modules/bootstrap/scss/tables";
+@import "../../node_modules/bootstrap/scss/forms";
+@import "../../node_modules/bootstrap/scss/buttons";
+
+@import "../../node_modules/bootstrap/scss/helpers/stretched-link";
+
+@import "../../node_modules/bootstrap/scss/utilities";
+
+@import "../../node_modules/bootstrap/scss/utilities/api";

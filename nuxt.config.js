@@ -1,6 +1,6 @@
 export default {
   // Target: https://go.nuxtjs.dev/config-target
-  target: 'static',
+  target: 'server',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -30,7 +30,7 @@ export default {
     scss: [
       // Makes scss variables and mixins available in every component
       // Do not import here actual styles!
-      'assets/scss/partials/_variables.scss',
+      'assets/scss/_variables.scss',
     ]
   },
 
@@ -40,8 +40,9 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~plugins/sticky-button.client.js',
-    '~plugins/point-caption.client.js'
+    '~plugins/sticky-button.client',
+    '~plugins/point-caption.client',
+    '~plugins/modal',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

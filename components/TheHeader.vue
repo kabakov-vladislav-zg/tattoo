@@ -30,10 +30,7 @@
         </li>
       </ul>
       <div class="the-header__item">
-        <button
-          class="btn btn-dark"
-          v-sticky-button
-        >
+        <button class="btn btn-dark px-4">
           Консультация
         </button>
       </div>
