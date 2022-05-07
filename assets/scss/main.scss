@@ -1,5 +1,4 @@
-@import "variables";
-@import "customized-bootstrap";
-
-@import "template";
-@import "modal";
+@import "common";
+@import "components";
+@import "helpers";
+@import "utilities";

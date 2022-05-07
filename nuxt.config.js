@@ -30,7 +30,7 @@ export default {
     scss: [
       // Makes scss variables and mixins available in every component
       // Do not import here actual styles!
-      'assets/scss/_variables.scss',
+      'assets/scss/_common.scss',
     ]
   },
 
@@ -43,6 +43,7 @@ export default {
     '~plugins/sticky-button.client',
     '~plugins/point-caption.client',
     '~plugins/modal',
+    '~plugins/slider',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

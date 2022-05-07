@@ -24,7 +24,7 @@
       name="modal"
       v-slot="{ options }"
     >
-      <SimpleModalContainer class="modal-container_xl">
+      <SimpleModalContainer :class="options.containerClasses">
         <component :is="options.component" v-bind="options.properties" />
       </SimpleModalContainer>
     </SimpleModal>

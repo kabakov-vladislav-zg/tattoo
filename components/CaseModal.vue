@@ -1,10 +1,12 @@
 <template>
   <article class="row row-cols-1 row-cols-md-2">
     <div class="col">
-      <img
-        :src="images[0].href"
-        class="w-100 h-auto"
-      >
+      <div class="ratio ratio-1x1">
+        <img
+          :src="images[0].href"
+          class="w-100 h-100 object-fit-cover"
+        >
+      </div>
     </div>
     <div class="col d-flex flex-column">
       <div class="flex-grow-1">

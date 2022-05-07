@@ -22,6 +22,12 @@
         Я готова к многим экспериментальным проектам. Творчество и яркость,
         то что я хочу приумножить проживая в России. Хочу собрать аудиторию
         у которой это находит отклик в душе.</p>
+
+      <template v-slot:img>
+        <PreviewSlider
+          :images="cases[1].images"
+        />
+      </template>
     </SectionTwoColumns>
 
     <SectionTwoColumns
@@ -73,10 +79,12 @@ import BannerAds from "@/components/BannerAds";
 import InteractiveMap from "@/components/InteractiveMap";
 
 import cases from "@/static/mockup/cases"
+import PreviewSlider from "@/components/PreviewSlider";
 export default {
   name: 'IndexPage',
 
   components: {
+    PreviewSlider,
     InteractiveMap,
     BannerAds,
     SectionTwoColumns
