@@ -1,10 +1,11 @@
 <template>
   <Slider
-    :getter="14"
-    :initCount="initCount"
-    :capacity="2"
-    :center="true"
     :margin="5"
+    :getter="14"
+    :capacity="2"
+    :initCount="initCount"
+    :isCentered="true"
+    :isDraggable="true"
   >
     <SliderItem
       v-for="img in images"

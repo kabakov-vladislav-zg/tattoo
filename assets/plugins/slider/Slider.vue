@@ -1,28 +1,43 @@
 <template>
   <div
     class="slider"
-    :style="`--slider-getter: ${ getter }px; --slider-capacity: ${ capacity }; --slider-margin: ${margin}%`"
+    :style="{
+      '--slider-getter': getter + 'px',
+      '--slider-capacity': capacity,
+      '--slider-margin': margin + '%',
+      '--slider-speed': speed + 's'
+    }"
   >
     <div
-      ref="container"
       class="slider__container"
+      :class="{ 'slider__container_centered' : isCentered }"
+      :style="{ '--slider-count': count }"
     >
       <div
-        ref="scene"
-        class="slider__scene"
-        :style="sceneStyle"
+        ref="wrapper"
+        class="slider__wrapper"
       >
-        <slot />
+        <div
+          ref="scene"
+          class="slider__scene"
+          :class="{
+          'slider__scene_draggable' : isDraggable,
+          'slider__scene_dragged' : isDragged
+        }"
+          :style="sceneStyle"
+        >
+          <slot />
+        </div>
       </div>
     </div>
     <button
-      @click="prev"
+      @click="flip(count - 1)"
       class="slider__handle"
     >
       взад
     </button>
     <button
-      @click="next"
+      @click="flip(count + 1)"
       class="slider__handle"
     >
       вперде
@@ -39,9 +54,9 @@ export default {
       type: Number,
       default: 0
     },
-    draggable: {
-      type: Boolean,
-      defaults: false
+    speed: {
+      type: Number,
+      default: .25
     },
     initCount: {
       type: Number,
@@ -51,106 +66,113 @@ export default {
       type: Number,
       default: 1
     },
-    center: {
-      type: Boolean,
-      default: false
-    },
     margin: {
       type: Number,
       default: 0
-    }
+    },
+    isCentered: {
+      type: Boolean,
+      default: false
+    },
+    isDraggable: {
+      type: Boolean,
+      defaults: false
+    },
   },
 
   data() {
     return {
       count: this.initCount,
-      width: 0,
       range: 0,
-      transition: false,
-      stack: ''
-    }
-  },
-
-  computed: {
-    slideWidth() {
-      return (this.width - this.getter * (this.capacity - 1)) / this.capacity
-    },
-    centerShift() {
-      if (this.center) {
-        return (this.width - this.slideWidth) / 2
-      } else {
-        return 0
-      }
-    },
-    shift() {
-      return this.centerShift - this.count * (this.slideWidth + this.getter)
-    },
-    sceneStyle() {
-      return {
-        transition: this.transition ? `.25s linear` : 'none',
-        transform: `translateX(${ this.shift }px)`
-      }
+      stack: NaN,
+      sceneStyle: '',
+      isTransition: false,
+      isDragged: false,
     }
   },
 
   methods: {
     flip(count) {
-      this.$nextTick(() => {
-        this.transition = true
+      if (this.isTransition) {
+        this.stack = count
+      } else if (this.inRange(count)) {
         this.count = count
-      })
-    },
-    prev() {
-      if (this.transition) {
-        this.stack = 'prev'
-        return
       }
-      let count = this.count - 1
-      if (count <= 0) count = 0
-      this.count = count
     },
-    next() {
-      if (this.transition) {
-        this.stack = 'next'
-        return
-      }
-      let count = this.count + 1
-      if (this.center) {
-        if (count >= this.range) count = this.range - 1
+    inRange(count) {
+      if (count < 0) return false
+      if (this.isCentered) {
+        if (count >= this.range) return false
       } else {
-        if (count >= this.range - this.capacity + 1) count = this.range - this.capacity
+        if (count >= this.range - this.capacity + 1) return false
       }
-      this.count = count
+      return true
     },
-    setWith() {
-      this.width = this.$refs.container.getBoundingClientRect().width
+    ontransitionstart() {
+      this.isTransition = true
+    },
+    ontransitionend() {
+      this.isTransition = false
+
+      if (!isNaN(this.stack)) {
+        if (!this.isDragged) this.flip(this.stack)
+        this.stack = NaN
+      }
+    },
+    ondragstart(e) {
+      const scene = this.$refs.scene.getBoundingClientRect()
+      const step = scene.width + this.getter
+      const startSceneShift = scene.left - this.$refs.wrapper.getBoundingClientRect().left
+      const startPointerShift = e.clientX
+      const startCount = this.count
+      const onpointermove = e => {
+        const pointerShift = e.clientX - startPointerShift
+        const sceneShift = startSceneShift + pointerShift
+
+        const absPointerShift = Math.abs(pointerShift)
+        if (absPointerShift > 40) {
+          let count
+          if (absPointerShift < step) {
+            count = startCount - Math.sign(pointerShift) * Math.ceil(absPointerShift / step)
+          } else {
+            count = startCount - Math.round(pointerShift / step)
+          }
+          if (this.inRange(count)) this.count = count
+        }
+
+        this.isDragged = true
+        this.sceneStyle = `transform: translateX(${sceneShift}px);`
+      }
+      const onpointerup = e => {
+        document.removeEventListener('pointermove', onpointermove)
+        document.removeEventListener('pointerup', onpointerup)
+
+        this.isDragged = false
+        this.sceneStyle = ''
+      }
+
+      document.addEventListener('pointermove', onpointermove)
+      document.addEventListener('pointerup', onpointerup)
+    },
+    setDragNDrop(flag) {
+      if (flag) {
+        this.$refs.scene.addEventListener('pointerdown', this.ondragstart)
+        this.$refs.scene.ondragstart = () => false
+      } else {
+        this.$refs.scene.removeEventListener('pointerdown', this.ondragstart)
+        this.$refs.scene.ondragstart = null
+      }
     }
   },
 
   mounted() {
-    this.$refs.scene.addEventListener('transitionend', () => {
-      this.transition = false
-      if (this.stack) {
-        this[this.stack]()
-        this.stack = ''
-      }
-    })
+    this.$refs.scene.addEventListener('transitionstart', this.ontransitionstart)
+    this.$refs.scene.addEventListener('transitionend', this.ontransitionend)
 
     this.range = this.$children.length
 
-    window.addEventListener('resize', this.setWith)
-    this.setWith()
-  },
-
-  destroyed() {
-    window.removeEventListener('resize', this.setWith)
-  },
-
-  created() {
-    console.log(this.capacity)
+    if (this.isDraggable) this.setDragNDrop(true)
   }
-
-
 }
 </script>
 
@@ -162,14 +184,33 @@ export default {
 
   &__container {
     margin: 0 var(--slider-margin);
+
+    &_centered {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  &__wrapper {
+    --slider-width: calc((100% - var(--slider-getter) * (var(--slider-capacity) - 1)) / var(--slider-capacity));
+    width: var(--slider-width);
   }
 
   &__scene {
-    width: calc((100% - var(--slider-getter) * (var(--slider-capacity) - 1)) / var(--slider-capacity));
+    --slider-shift: calc(-1 * var(--slider-count) * (100% + var(--slider-getter)));
+    width: 100%;
+    transform: translateX(var(--slider-shift));
+    transition: var(--slider-speed) linear;
     overflow: visible;
     display: flex;
     position: relative;
-    touch-action: pan-y pinch-zoom;
+
+    &_draggable{
+      touch-action: pan-y pinch-zoom;
+    }
+    &_dragged {
+      transition: none;
+    }
   }
   &__handle, &__scene {
     pointer-events: auto;
