@@ -1,6 +1,7 @@
 <template>
   <div
     class="slider"
+    :class="{ 'slider_centered' : isCentered }"
     :style="{
       '--slider-getter': getter + 'px',
       '--slider-capacity': capacity,
@@ -9,39 +10,22 @@
     }"
   >
     <div
-      class="slider__container"
-      :class="{ 'slider__container_centered' : isCentered }"
+      ref="wrapper"
       :style="{ '--slider-count': count }"
+      class="slider__wrapper"
     >
       <div
-        ref="wrapper"
-        class="slider__wrapper"
+        ref="scene"
+        class="slider__scene"
+        :class="{
+        'slider__scene_draggable' : isDraggable,
+        'slider__scene_dragged' : isDragged
+      }"
+        :style="sceneStyle"
       >
-        <div
-          ref="scene"
-          class="slider__scene"
-          :class="{
-          'slider__scene_draggable' : isDraggable,
-          'slider__scene_dragged' : isDragged
-        }"
-          :style="sceneStyle"
-        >
-          <slot />
-        </div>
+        <slot />
       </div>
     </div>
-    <button
-      @click="flip(count - 1)"
-      class="slider__handle"
-    >
-      взад
-    </button>
-    <button
-      @click="flip(count + 1)"
-      class="slider__handle"
-    >
-      вперде
-    </button>
   </div>
 </template>
 
@@ -58,7 +42,7 @@ export default {
       type: Number,
       default: .25
     },
-    initCount: {
+    currentCount: {
       type: Number,
       default: 0
     },
@@ -82,7 +66,7 @@ export default {
 
   data() {
     return {
-      count: this.initCount,
+      count: this.currentCount,
       range: 0,
       stack: NaN,
       sceneStyle: '',
@@ -181,14 +165,11 @@ export default {
   overflow-x: hidden;
   width: 100%;
   pointer-events: none;
+  padding: 0 var(--slider-margin);
 
-  &__container {
-    margin: 0 var(--slider-margin);
-
-    &_centered {
-      display: flex;
-      justify-content: center;
-    }
+  &_centered {
+    display: flex;
+    justify-content: center;
   }
 
   &__wrapper {

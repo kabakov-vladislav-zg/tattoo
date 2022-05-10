@@ -12,10 +12,18 @@
         :class="[ reverse ? 'pe-md-5' : 'ps-md-5' ]"
       >
         <slot name="img">
-          <FigureCase
-            v-if="caseItem"
-            :caseItem="caseItem"
-          />
+          <PreviewSlider :images="caseItem.images">
+            <slot name="figcaption">
+              Работа мастера
+              <nuxt-link :to="`/authors/${caseItem.author.name}`">
+                {{ caseItem.author.name }}
+              </nuxt-link>
+            </slot>
+          </PreviewSlider>
+<!--          <FigureCase-->
+<!--            v-if="caseItem"-->
+<!--            :caseItem="caseItem"-->
+<!--          />-->
         </slot>
       </div>
     </div>
@@ -23,10 +31,12 @@
 </template>
 
 <script>
-import FigureCase from "@/components/FigureCase";
+import PreviewSlider from "@/components/PreviewSlider";
 export default {
   name: "SectionTwoColumns",
-  components: {FigureCase},
+  components: {
+    PreviewSlider
+  },
   props: {
     caseItem: {
       type: Object,

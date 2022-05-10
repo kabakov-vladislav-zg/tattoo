@@ -3,7 +3,7 @@
     :margin="5"
     :getter="14"
     :capacity="2"
-    :initCount="initCount"
+    :currentCount="currentCount"
     :isCentered="true"
     :isDraggable="true"
   >
@@ -26,7 +26,7 @@ export default {
   name: "SliderModal",
 
   props: {
-    initCount: {
+    currentCount: {
       type: Number,
       default: 0
     },

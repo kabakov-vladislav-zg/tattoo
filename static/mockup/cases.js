@@ -6,7 +6,7 @@ export default [
       }
     ],
     author: {
-      name: '@buz_toty',
+      name: 'buz_toty',
       contacts: {
         instagram: 'https://www.instagram.com/_buz_toty_/',
       }
@@ -33,7 +33,7 @@ export default [
       },
     ],
     author: {
-      name: '@buz_toty',
+      name: 'buz_toty',
       contacts: {
         instagram: 'https://www.instagram.com/_buz_toty_/',
       }

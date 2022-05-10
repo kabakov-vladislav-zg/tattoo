@@ -8,6 +8,14 @@
       <p>На счету мастеров нашей студии множество превосходных работ.
         Из года в год мы подтверждаем статус одного из лучших
         тату-салонов в Тольятти.</p>
+      <template v-slot:img>
+        <div class="ratio ratio-1x1">
+          <img
+            :src="cases[0].images[0].href"
+            class="w-100 h-100 object-fit-cover"
+          >
+        </div>
+      </template>
     </SectionTwoColumns>
 
     <BannerAds />
@@ -23,10 +31,8 @@
         то что я хочу приумножить проживая в России. Хочу собрать аудиторию
         у которой это находит отклик в душе.</p>
 
-      <template v-slot:img>
-        <PreviewSlider
-          :images="cases[1].images"
-        />
+      <template v-slot:figcaption>
+        Студия
       </template>
     </SectionTwoColumns>
 
