@@ -82,47 +82,43 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.layout-default {
-  &__footer-overlay {
-    position: relative;
-    z-index: 1;
-    margin-bottom: 30rem;
-    background: $white;
-  }
-  &__footer {
-    height: 30rem;
-    position: fixed;
-    inset: auto 0 0 0;
-  }
-  &__point {
-    position: absolute;
-    top: -4px;
-    left: -4px;
-    transition: .125s linear;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: $red;
-    z-index: 999999999;
-    pointer-events: none;
-    color: #fff;
-    font-weight: 500;
-    font-family: $btn-font-family;
-    font-size: .75rem;
-
-    &_with-caption {
-      top: -3.125rem;
-      left: -3.125rem;
-      width: 6.25rem;
-      height: 6.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 1rem;
-      overflow: hidden;
-    }
-  }
+<style>
+.layout-default__footer-overlay {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 30rem;
+  background: white;
+}
+.layout-default__footer {
+  height: 30rem;
+  position: fixed;
+  inset: auto 0 0 0;
+}
+.layout-default__point {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  transition: transform 50ms linear, 125ms;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: red;
+  z-index: 999999999;
+  pointer-events: none;
+  color: #fff;
+  font-weight: 500;
+  font-size: .75rem;
+}
+.layout-default__point_with-caption {
+  top: -3.125rem;
+  left: -3.125rem;
+  width: 6.25rem;
+  height: 6.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
+  overflow: hidden;
 }
 </style>

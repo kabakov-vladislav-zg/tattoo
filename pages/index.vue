@@ -1,26 +1,27 @@
 <template>
   <main>
-    <SectionTwoColumns
+    <SectionDefault
       :caseItem="cases[0]"
       :reverse="true"
+      class="mt-20"
     >
       <h1 class="display-2">Студия татуировок и пирсинга в Тольятти</h1>
       <p>На счету мастеров нашей студии множество превосходных работ.
         Из года в год мы подтверждаем статус одного из лучших
         тату-салонов в Тольятти.</p>
       <template v-slot:img>
-        <div class="ratio ratio-1x1">
+        <div class="aspect-w-1 aspect-h-1">
           <img
             :src="cases[0].images[0].href"
-            class="w-100 h-100 object-fit-cover"
+            class="w-full h-full object-center object-cover"
           >
         </div>
       </template>
-    </SectionTwoColumns>
+    </SectionDefault>
 
     <BannerAds />
 
-    <SectionTwoColumns
+    <SectionDefault
       :caseItem="cases[1]"
     >
       <h2 class="display-3">О нас</h2>
@@ -34,9 +35,9 @@
       <template v-slot:figcaption>
         Студия
       </template>
-    </SectionTwoColumns>
+    </SectionDefault>
 
-    <SectionTwoColumns
+    <SectionDefault
       :reverse="true"
       :caseItem="cases[1]"
     >
@@ -65,8 +66,8 @@
         </tr>
         </tbody>
       </table>
-    </SectionTwoColumns>
-    <SectionTwoColumns>
+    </SectionDefault>
+    <SectionDefault>
       <h2 class="display-3">Как доехать?</h2>
       <p>Работаем каждый день с 10:00 до последнего клиента.</p>
       <p>Тольятти, улица Дзержинского, 68А</p>
@@ -75,12 +76,12 @@
       <template v-slot:img>
         <InteractiveMap />
       </template>
-    </SectionTwoColumns>
+    </SectionDefault>
   </main>
 </template>
 
 <script>
-import SectionTwoColumns from "@/components/SectionTwoColumns";
+import SectionDefault from "@/components/SectionDefault";
 import BannerAds from "@/components/BannerAds";
 import InteractiveMap from "@/components/InteractiveMap";
 
@@ -93,7 +94,7 @@ export default {
     PreviewSlider,
     InteractiveMap,
     BannerAds,
-    SectionTwoColumns
+    SectionDefault
   },
 
   data() {

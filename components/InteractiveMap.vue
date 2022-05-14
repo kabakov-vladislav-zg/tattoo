@@ -50,14 +50,15 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
 .map-yandex {
   position: relative;
   padding-top: 100%;
 
-  & > .ymap-container {
-    position: absolute;
-    inset: 0;
-  }
+
+}
+.map-yandex > .ymap-container {
+  position: absolute;
+  inset: 0;
 }
 </style>

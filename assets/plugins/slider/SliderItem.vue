@@ -10,7 +10,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
 .slider-item {
   flex-shrink: 0;
   width: 100%;

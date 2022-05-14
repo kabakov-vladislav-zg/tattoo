@@ -12,9 +12,9 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
 .the-footer {
-  background: $dark;
-  color: $white;
+  background: darkslategray;
+  color: white;
 }
 </style>

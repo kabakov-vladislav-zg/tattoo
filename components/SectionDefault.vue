@@ -1,15 +1,15 @@
 <template>
-  <section class="section section-two-columns container">
-    <div
-      class="row row-cols-1 row-cols-md-2 align-items-center gy-4 gy-md-0"
-      :class="{ 'flex-row-reverse' : reverse }"
-    >
-      <div class="col">
+  <section class="container pb-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div
+        v-if="!reverse"
+        class="flex flex-col justify-center"
+      >
         <slot></slot>
       </div>
       <div
         class="col"
-        :class="[ reverse ? 'pe-md-5' : 'ps-md-5' ]"
+        :class="[ reverse ? 'md:pr-5' : 'md:pl-5' ]"
       >
         <slot name="img">
           <PreviewSlider :images="caseItem.images">
@@ -20,11 +20,13 @@
               </nuxt-link>
             </slot>
           </PreviewSlider>
-<!--          <FigureCase-->
-<!--            v-if="caseItem"-->
-<!--            :caseItem="caseItem"-->
-<!--          />-->
         </slot>
+      </div>
+      <div
+        v-if="reverse"
+        class="flex flex-col justify-center"
+      >
+        <slot></slot>
       </div>
     </div>
   </section>
@@ -33,7 +35,7 @@
 <script>
 import PreviewSlider from "@/components/PreviewSlider";
 export default {
-  name: "SectionTwoColumns",
+  name: "SectionDefault",
   components: {
     PreviewSlider
   },

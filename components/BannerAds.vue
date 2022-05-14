@@ -1,14 +1,14 @@
 <template>
   <div
-    v-point-caption="'узнать больше'"
-    class="container"
+    class="container pb-8"
   >
     <img
       src="/mockup/banner.jpg"
       width="1288"
       height="240"
       alt=""
-      class="w-100 h-auto border border-dark"
+      class="w-full h-auto border border-slate-400 rounded-sm"
+      v-point-caption="'узнать больше'"
     >
   </div>
 </template>

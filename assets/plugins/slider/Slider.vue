@@ -160,41 +160,41 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
 .slider {
   overflow-x: hidden;
   width: 100%;
   pointer-events: none;
   padding: 0 var(--slider-margin);
+}
 
-  &_centered {
-    display: flex;
-    justify-content: center;
-  }
+.slider_centered {
+  display: flex;
+  justify-content: center;
+}
 
-  &__wrapper {
-    --slider-width: calc((100% - var(--slider-getter) * (var(--slider-capacity) - 1)) / var(--slider-capacity));
-    width: var(--slider-width);
-  }
+.slider__wrapper {
+  --slider-width: calc((100% - var(--slider-getter) * (var(--slider-capacity) - 1)) / var(--slider-capacity));
+  width: var(--slider-width);
+}
 
-  &__scene {
-    --slider-shift: calc(-1 * var(--slider-count) * (100% + var(--slider-getter)));
-    width: 100%;
-    transform: translateX(var(--slider-shift));
-    transition: var(--slider-speed) linear;
-    overflow: visible;
-    display: flex;
-    position: relative;
+.slider__scene {
+  --slider-shift: calc(-1 * var(--slider-count) * (100% + var(--slider-getter)));
+  width: 100%;
+  transform: translateX(var(--slider-shift));
+  transition: var(--slider-speed) linear;
+  overflow: visible;
+  display: flex;
+  position: relative;
+}
 
-    &_draggable{
-      touch-action: pan-y pinch-zoom;
-    }
-    &_dragged {
-      transition: none;
-    }
-  }
-  &__handle, &__scene {
-    pointer-events: auto;
-  }
+.slider__scene_draggable{
+  touch-action: pan-y pinch-zoom;
+}
+.slider__scene_dragged {
+  transition: none;
+}
+.slider__handle, .slider__scene {
+  pointer-events: auto;
 }
 </style>
