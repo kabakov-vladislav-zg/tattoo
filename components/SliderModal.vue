@@ -11,11 +11,8 @@
       v-for="img in images"
       :key="img.href"
     >
-      <div class="ratio ratio-1x1">
-        <img
-          :src="img.href"
-          class="w-100 h-100 object-fit-cover"
-        />
+      <div class="picture">
+        <img :src="img.href"/>
       </div>
     </SliderItem>
   </Slider>

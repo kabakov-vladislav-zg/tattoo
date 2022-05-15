@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import SimpleModal from '../assets/plugins/modal/SimpleModal'
 import SimpleModalContainer from '../assets/plugins/modal/SimpleModalContainer'
-import { Observer } from "@/helpers/Observer";
+import { Observer } from "@/helpers/Observer"
+import '../assets/plugins/modal/modal.css'
 
 Vue.component('SimpleModal', SimpleModal)
 Vue.component('SimpleModalContainer', SimpleModalContainer)

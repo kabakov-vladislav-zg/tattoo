@@ -10,10 +10,11 @@ module.exports = {
     container: {
       center: true,
     },
+    fontFamily: {
+      heading: `'Source Sans Pro', sans-serif`,
+      base: `'Montserrat', sans-serif`
+    },
     extend: {
-      fontFamily: {
-        btn: `'Montserrat Alternates', sans-serif`
-      },
       colors: {
         red: '#DC3545',
       },

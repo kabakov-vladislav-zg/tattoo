@@ -1,45 +1,44 @@
 <template>
-  <figure class="figure-case w-100 position-relative">
-    <div class="d-flex justify-content-end align-items-center">
+  <figure class="relative flex flex-col">
+    <div :class="[ reverse ? 'self-end' : 'self-start' ]">
       <button
-        @click="slider.flip(slider.count - 1)"
-        class="btn"
+        @click="slider && slider.flip(slider.count - 1)"
+        :disabled="!slider || slider.count === 0"
+        class="p-2"
+        aria-label="предыдущий слайд"
       >
         &#8592;
       </button>
-      <span
-        v-if="slider"
-        class="px-2"
-      >
-        {{ slider.count + 1 }} / {{ slider.range }}
+      <span class="w-10 text-center">
+        {{ progress }}
       </span>
       <button
-        @click="slider.flip(slider.count + 1)"
-        class="btn"
+        @click="slider && slider.flip(slider.count + 1)"
+        :disabled="!slider || slider.count === slider.limit"
+        class="p-2"
+        aria-label="следующий слайд"
       >
         &#8594;
       </button>
     </div>
-    .
     <Slider
-        ref="slider"
-        :getter="4"
+      ref="slider"
+      :getter="4"
+      :isDraggable="true"
+    >
+      <SliderItem
+        v-for="img in images"
+        :key="img.href"
       >
-        <SliderItem
-          v-for="(img, i) in images"
-          :key="img.href"
-          v-point-caption="'смотреть'"
-        >
-          <div class="ratio ratio-1x1">
-            <img
-              @click="open(i)"
-              :src="img.href"
-              class="w-100 h-100 object-fit-cover"
-            />
-          </div>
-        </SliderItem>
-      </Slider>
-    <figcaption class="py-2">
+        <div class="picture">
+          <img :src="img.href"/>
+        </div>
+      </SliderItem>
+    </Slider>
+    <figcaption
+      class="py-2"
+      :class="[ reverse ? 'self-start' : 'self-end' ]"
+    >
       <slot />
     </figcaption>
   </figure>
@@ -47,7 +46,6 @@
 
 <script>
 import CaseModal from "./CaseModal"
-import SliderModal from "@/components/SliderModal";
 export default {
   name: "PreviewSlider",
 
@@ -59,6 +57,10 @@ export default {
     images: {
       type: Array,
       required: true
+    },
+    reverse: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -68,16 +70,9 @@ export default {
     }
   },
 
-  methods: {
-    open(i) {
-      this.$modal.on('modal', {
-        component: SliderModal,
-        properties: {
-          currentCount: i,
-          images: this.images
-        },
-        containerClasses: 'modal-container_slider'
-      })
+  computed: {
+    progress() {
+      return `${ 1 + (this.slider ? this.slider.count : 0) } / ${this.images.length}`
     }
   },
 

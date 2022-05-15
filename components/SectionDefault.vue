@@ -12,7 +12,10 @@
         :class="[ reverse ? 'md:pr-5' : 'md:pl-5' ]"
       >
         <slot name="img">
-          <PreviewSlider :images="caseItem.images">
+          <PreviewSlider
+            :images="caseItem.images"
+            :reverse="reverse"
+          >
             <slot name="figcaption">
               Работа мастера
               <nuxt-link :to="`/authors/${caseItem.author.name}`">

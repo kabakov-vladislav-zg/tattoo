@@ -1,9 +1,6 @@
 <template>
-  <header
-    class="fixed inset-0 bottom-auto z-40 bg-white"
-    v-point-caption="''"
-  >
-    <nav class="container flex h-16">
+  <header class="fixed inset-0 bottom-auto z-40 bg-white">
+    <div class="container flex h-16">
       <nuxt-link
         to="/"
         class="px-4 flex items-center"
@@ -16,60 +13,23 @@
           class="h-3/4 w-auto"
         >
       </nuxt-link>
-      <ul class="flex ml-auto">
-        <li
-          v-for="link in navLinks"
-          :key="link.name"
-        >
-          <nuxt-link
-            :to="link.to"
-            class="px-4 h-full flex items-center font-medium font-btn"
-            v-sticky-button
-          >
-            {{ link.name }}
-          </nuxt-link>
-        </li>
-      </ul>
+      <TheHeaderNav class="ml-auto" />
       <button
         class="px-4 flex items-center"
         v-sticky-button=".75"
       >
-        <span class="font-btn font-medium bg-black text-white px-4 py-2 rounded-sm">
+        <span class="font-medium bg-black text-white px-4 py-2 rounded-sm">
           Консультация
         </span>
       </button>
-    </nav>
+    </div>
   </header>
 </template>
 
 <script>
+import TheHeaderNav from "@/components/TheHeaderNav";
 export default {
   name: "TheHeader",
-  data() {
-    return {
-      navLinks: [
-        {
-          name: 'главная',
-          to: '/'
-        },
-        {
-          name: 'тату',
-          to: '/'
-        },
-        {
-          name: 'пирсинг',
-          to: '/'
-        },
-        {
-          name: 'портфолио',
-          to: '/'
-        },
-        {
-          name: 'блог',
-          to: '/'
-        },
-      ]
-    }
-  }
+  components: {TheHeaderNav}
 }
 </script>

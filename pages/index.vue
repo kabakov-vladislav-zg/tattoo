@@ -10,11 +10,8 @@
         Из года в год мы подтверждаем статус одного из лучших
         тату-салонов в Тольятти.</p>
       <template v-slot:img>
-        <div class="aspect-w-1 aspect-h-1">
-          <img
-            :src="cases[0].images[0].href"
-            class="w-full h-full object-center object-cover"
-          >
+        <div class="picture">
+          <img :src="cases[0].images[0].href">
         </div>
       </template>
     </SectionDefault>

@@ -75,6 +75,12 @@ export default {
     }
   },
 
+  computed: {
+    limit() {
+      return this.isCentered ? this.range - 1 : this.range - this.capacity
+    }
+  },
+
   methods: {
     flip(count) {
       if (this.isTransition) {
@@ -84,13 +90,7 @@ export default {
       }
     },
     inRange(count) {
-      if (count < 0) return false
-      if (this.isCentered) {
-        if (count >= this.range) return false
-      } else {
-        if (count >= this.range - this.capacity + 1) return false
-      }
-      return true
+      return !(count < 0 || count > this.limit)
     },
     ontransitionstart() {
       this.isTransition = true

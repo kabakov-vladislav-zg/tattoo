@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-base;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading leading-none font-extralight;
+  }
+  h1, h2 {
+    @apply text-7xl mb-4;
+  }
+}
+
+@layer components {
+  .picture {
+    @apply aspect-w-1 aspect-h-1;
+  }
+  .picture > img {
+    @apply w-full h-full object-center object-cover;
+  }
+}
