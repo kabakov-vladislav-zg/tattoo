@@ -12,6 +12,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "core-js": "^3.19.3",
+    "focus-visible": "^5.2.0",
     "lodash": "^4.17.21",
     "modern-normalize": "^1.1.0",
     "nuxt": "^2.15.8",

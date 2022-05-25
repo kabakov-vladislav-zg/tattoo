@@ -33,6 +33,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~plugins/focus-visible.client',
     '~plugins/sticky-button.client',
     '~plugins/point-caption.client',
     '~plugins/modal',
